@@ -1,0 +1,874 @@
+
+///// Code /////
+/// Bismillahir Rahmanir Rahim
+
+/*
+
+███████     ██████   █████  ██    ██ ███████
+     ██     ██   ██ ██   ██  ██  ██     ███
+    ██      ██   ██ ███████   ████     ███
+   ██       ██   ██ ██   ██    ██     ███
+   ██       ██████  ██   ██    ██    ███████
+
+
+*/
+#include<bits/stdc++.h>
+#include<windows.h>
+using namespace std;
+class restaurent
+{
+private:
+    long long int admin_phone;
+    string admin_username;
+    string admin_password;
+    int food_code;
+    string food_name;
+    int food_quantity;
+    int food_price;
+    long long int customer_phone;
+    string customer_username;
+    string customer_password;
+public:
+    void set_admin_data(long long int p, string n, string pass)
+    {
+        admin_phone = p;
+        admin_username = n;
+        admin_password = pass;
+    }
+    void save_admin_data_in_file()
+    {
+        ofstream admin_data("AdminDB.txt", ios :: out|ios :: app);
+        admin_data << admin_username << endl;
+        admin_data << admin_password << endl;
+        admin_data << admin_phone << endl;
+        admin_data.close();
+    }
+    void set_food_menu(int fc, string fn, int fp, int fq)
+    {
+        food_code = fc;
+        food_name = fn;
+        food_price = fp;
+        food_quantity = fq;
+    }
+    void save_food_menu_in_file()
+    {
+        ofstream food_data("MenuDB.txt", ios :: out | ios :: app);
+        food_data << food_code << endl;
+        food_data << food_name << endl;
+        food_data << food_price << endl;
+        food_data << food_quantity << endl;
+        food_data.close();
+    }
+    void see_menu()
+    {
+        ifstream food_data("MenuDB.txt");
+        int code;
+        string name;
+        int price;
+        int quantity;
+        food_data >> code;
+        food_data >> name;
+        food_data >> price;
+        food_data >> quantity;
+        while(food_data.eof()==0)
+        {
+            cout << "     Menu Code : " << code << endl;
+            cout << "     Menu Name : " << name << endl;
+            cout << "     Menu Price : " << price << " BDT" << endl;
+            cout << "     Menu Quantity : " << quantity << endl;
+            food_data >> code;
+            food_data >> name;
+            food_data >> price;
+            food_data >> quantity;
+        }
+        food_data.close();
+    }
+    void change_menu_name()
+    {
+        ofstream food_data_out("demo_MenuDB.txt");
+        ifstream food_data_in("MenuDB.txt");
+        int code;
+        string name;
+        int quantity;
+        int price;
+        int admin_choose;
+        int food_code;
+        string new_name;
+        cout << "     Enter Menu Code : ";
+        cin >> food_code;
+        cin.ignore();
+        cout << "     Enter New Name (Without Space) : ";
+        getline(cin, new_name);
+        food_data_in >> code;
+        food_data_in >> name;
+        food_data_in >> price;
+        food_data_in >> quantity;
+        while(food_data_in.eof()==0)
+        {
+            if(food_code==code)
+            {
+                food_data_out << code << endl;
+                food_data_out << new_name << endl;
+                food_data_out << price << endl;
+                food_data_out << quantity << endl;
+                system("cls");
+                cout << "     Name Changed Successfully !!!" << endl;
+
+            }
+            else
+            {
+                food_data_out << code << endl;
+                food_data_out << name << endl;
+                food_data_out << price << endl;
+                food_data_out << quantity << endl;
+            }
+            food_data_in >> code;
+            food_data_in >> name;
+            food_data_in >> price;
+            food_data_in >> quantity;
+        }
+        food_data_in.close();
+        food_data_out.close();
+        int aaa = remove("MenuDB.txt");
+        if(!aaa==0)
+        {
+            perror("Error: ");
+        }
+        rename("demo_MenuDB.txt","MenuDB.txt");
+    }
+    void change_menu_price()
+    {
+        ofstream food_data_out("demo_MenuDB.txt");
+        ifstream food_data_in("MenuDB.txt");
+        int code;
+        string name;
+        int quantity;
+        int price;
+        int admin_choose;
+        int food_code;
+        int new_price;
+        cout << "     Enter Menu Code : ";
+        cin >> food_code;
+        cout << "     Enter New Price : ";
+        cin >> new_price;
+        food_data_in >> code;
+        food_data_in >> name;
+        food_data_in >> price;
+        food_data_in >> quantity;
+        while(food_data_in.eof()==0)
+        {
+            if(food_code==code)
+            {
+                food_data_out << code << endl;
+                food_data_out << name << endl;
+                food_data_out << new_price << endl;
+                food_data_out << quantity << endl;
+                system("cls");
+                cout << "     Price Changed Successfully !!!" << endl;
+            }
+            else
+            {
+                food_data_out << code << endl;
+                food_data_out << name << endl;
+                food_data_out << price << endl;
+                food_data_out << quantity << endl;
+            }
+            food_data_in >> code;
+            food_data_in >> name;
+            food_data_in >> price;
+            food_data_in >> quantity;
+        }
+        food_data_in.close();
+        food_data_out.close();
+        int aaa = remove("MenuDB.txt");
+        if(!aaa==0)
+        {
+            perror("Error: ");
+        }
+        rename("demo_MenuDB.txt","MenuDB.txt");
+    }
+    void change_menu_quantity()
+    {
+        ofstream food_data_out("demo_MenuDB.txt");
+        ifstream food_data_in("MenuDB.txt");
+        int code;
+        string name;
+        int quantity;
+        int price;
+        int admin_choose;
+        int food_code;
+        int new_quantity;
+        cout << "     Enter Menu Code : ";
+        cin >> food_code;
+        cout << "     Enter New Quantity : ";
+        cin >> new_quantity;
+        food_data_in >> code;
+        food_data_in >> name;
+        food_data_in >> price;
+        food_data_in >> quantity;
+        while(food_data_in.eof()==0)
+        {
+            if(food_code==code)
+            {
+                food_data_out << code << endl;
+                food_data_out << name << endl;
+                food_data_out << price << endl;
+                food_data_out << new_quantity << endl;
+                system("cls");
+                cout << "     Quantity Changed Successfully !!!" << endl;
+            }
+            else
+            {
+                food_data_out << code << endl;
+                food_data_out << name << endl;
+                food_data_out << price << endl;
+                food_data_out << quantity << endl;
+            }
+            food_data_in >> code;
+            food_data_in >> name;
+            food_data_in >> price;
+            food_data_in >> quantity;
+        }
+        food_data_in.close();
+        food_data_out.close();
+        int aaa = remove("MenuDB.txt");
+        if(!aaa==0)
+        {
+            perror("Error: ");
+        }
+        rename("demo_MenuDB.txt","MenuDB.txt");
+    }
+    void delete_menu()
+    {
+        ofstream food_data_out("demo_MenuDB.txt");
+        ifstream food_data_in("MenuDB.txt");
+        int code;
+        string name;
+        int quantity;
+        int price;
+        int admin_choose;
+        int food_code;
+        cout << "     Enter Menu Code : ";
+        cin >> food_code;
+        food_data_in >> code;
+        food_data_in >> name;
+        food_data_in >> price;
+        food_data_in >> quantity;
+        while(food_data_in.eof()==0)
+        {
+            if(food_code==code)
+            {
+
+                cout << "     Menu Deleted Successfully !!!" << endl;
+            }
+            else
+            {
+                food_data_out << code << endl;
+                food_data_out << name << endl;
+                food_data_out << price << endl;
+                food_data_out << quantity << endl;
+            }
+            food_data_in >> code;
+            food_data_in >> name;
+            food_data_in >> price;
+            food_data_in >> quantity;
+        }
+        food_data_in.close();
+        food_data_out.close();
+        int aaa = remove("MenuDB.txt");
+        if(!aaa==0)
+        {
+            perror("Error: ");
+        }
+        rename("demo_MenuDB.txt","MenuDB.txt");
+    }
+    void set_customer_data(long long int cphone, string cname, string cpass)
+    {
+        customer_phone = cphone;
+        customer_username = cname;
+        customer_password = cpass;
+    }
+    void save_customer_data_in_file()
+    {
+        ofstream customer_data("CustomerDB.txt", ios :: out|ios :: app);
+        customer_data << customer_username << endl;
+        customer_data << customer_password << endl;
+        customer_data << customer_phone << endl;
+        customer_data.close();
+    }
+    void buy_food()
+    {
+        ifstream output_from_file("MenuDB.txt");
+        ofstream input_in_file_demo("demo_MenuDB.txt");
+        int menu_code;
+        string menu_name;
+        int menu_price;
+        int menu_quantity;
+        int customer_choose;
+        int food_code;
+        int customer_menu_quantity;
+        int demo_price;
+        cout << "     Enter Menu Code : ";
+        cin >> food_code;
+        cout << "     Enter Menu Quantity : ";
+        cin >> customer_menu_quantity;
+        output_from_file >> menu_code;
+        output_from_file >> menu_name;
+        output_from_file >> menu_price;
+        output_from_file >> menu_quantity;
+        while(output_from_file.eof()==0)
+        {
+            if(food_code==menu_code && menu_quantity>0 && menu_quantity>=customer_menu_quantity)
+            {
+                demo_price = menu_price * customer_menu_quantity;
+                menu_quantity = menu_quantity - customer_menu_quantity;
+                input_in_file_demo << menu_code;
+                input_in_file_demo << endl;
+                input_in_file_demo << menu_name;
+                input_in_file_demo << endl;
+                input_in_file_demo << menu_price;
+                input_in_file_demo << endl;
+                input_in_file_demo << menu_quantity;
+                input_in_file_demo << endl;
+                cout << "     " << menu_name << " Buy Successfully !!! " << endl;
+                cout << "     Total Bill : " << demo_price << " BDT" << endl;
+            }
+            else if((menu_quantity-customer_menu_quantity)<0 && food_code==menu_code)
+            {
+                cout << "     Stock Out !!!" << endl;
+                input_in_file_demo << menu_code;
+                input_in_file_demo << endl;
+                input_in_file_demo << menu_name;
+                input_in_file_demo << endl;
+                input_in_file_demo << menu_price;
+                input_in_file_demo << endl;
+                input_in_file_demo << menu_quantity;
+                input_in_file_demo << endl;
+            }
+            else
+            {
+                input_in_file_demo << menu_code;
+                input_in_file_demo << endl;
+                input_in_file_demo << menu_name;
+                input_in_file_demo << endl;
+                input_in_file_demo << menu_price;
+                input_in_file_demo << endl;
+                input_in_file_demo << menu_quantity;
+                input_in_file_demo << endl;
+            }
+            output_from_file >> menu_code;
+            output_from_file >> menu_name;
+            output_from_file >> menu_price;
+            output_from_file >> menu_quantity;
+        }
+        output_from_file.close();
+        input_in_file_demo.close();
+        int aaa = remove("MenuDB.txt");
+        if(!aaa==0)
+        {
+            perror("Error: ");
+        }
+        rename("demo_MenuDB.txt","MenuDB.txt");
+    }
+    void customer_register()
+    {
+        restaurent customer;
+        long long int phone;
+        string username;
+        string password;
+        cout << "     For Registration As A Customer you need to complete few steps !!!" << endl;
+        cout << "     Enter Username : ";
+        cin >> username;
+        cout << "     Enter Password : ";
+        cin >> password;
+        cout << "     Enter Your Phone Number : ";
+        cin >> phone;
+        customer.set_customer_data(phone, username, password);
+        customer.save_customer_data_in_file();
+        cout << "     Registration Completed !!!" << endl;
+    }
+    void admin_register()
+    {
+        restaurent admin;
+        long long int phone;
+        string username;
+        string password;
+        cout << "     For Registration As A Admin you need to complete few steps !!!" << endl;
+        cout << "     Enter Username : ";
+        cin >> username;
+        cout << "     Enter Password : ";
+        cin >> password;
+        cout << "     Enter Your Phone Number : ";
+        cin >> phone;
+        admin.set_admin_data(phone, username, password);
+        admin.save_admin_data_in_file();
+        cout << "     Registration Completed !!!" << endl;
+    }
+    void see_review()
+    {
+        ifstream review_data("ReviewDB.txt");
+        int code;
+        string name;
+        int good_reviews;
+        int bad_reviews;
+        review_data >> code;
+        review_data >> name;
+        review_data >> good_reviews;
+        review_data >> bad_reviews;
+        while(review_data.eof()==0)
+        {
+            cout << "     Menu Code : " << code << endl;
+            cout << "     Menu Name : " << name << endl;
+            cout << "     Good Reviews : " << good_reviews << " Person" << endl;
+            cout << "     Bad Reviews : " << bad_reviews << " Person" << endl;
+            review_data >> code;
+            review_data >> name;
+            review_data >> good_reviews;
+            review_data >> bad_reviews;
+        }
+        review_data.close();
+    }
+    void give_review()
+    {
+        ifstream output_from_file("ReviewDB.txt");
+        ofstream input_in_file_demo("demo_ReviewDB.txt");
+        int menu_code;
+        string menu_name;
+        int good_review;
+        int bad_review;
+        int customer_choose;
+        int food_code;
+        cout << "     Enter Menu Code : ";
+        cin >> food_code;
+        cout << "     1.Good Review" << endl;
+        cout << "     2.Bad Review" << endl;
+        cout << "     Press : ";
+        cin >> customer_choose;
+        if(customer_choose==1)
+        {
+            output_from_file >> menu_code;
+            output_from_file >> menu_name;
+            output_from_file >> good_review;
+            output_from_file >> bad_review;
+            while(output_from_file.eof()==0)
+            {
+                if(food_code==menu_code)
+                {
+                    int demo_review = good_review + 1;
+                    input_in_file_demo << menu_code << endl;
+                    input_in_file_demo << menu_name << endl;
+                    input_in_file_demo << demo_review << endl;
+                    input_in_file_demo << bad_review << endl;
+                    cout << "     Good Review Given Successfully To Selected Food !!!" << endl;
+                }
+                else
+                {
+                    input_in_file_demo << menu_code << endl;
+                    input_in_file_demo << menu_name << endl;
+                    input_in_file_demo << good_review << endl;
+                    input_in_file_demo << bad_review << endl;
+                }
+                output_from_file >> menu_code;
+                output_from_file >> menu_name;
+                output_from_file >> good_review;
+                output_from_file >> bad_review;
+            }
+
+        }
+        if(customer_choose==2)
+        {
+            output_from_file >> menu_code;
+            output_from_file >> menu_name;
+            output_from_file >> good_review;
+            output_from_file >> bad_review;
+            while(output_from_file.eof()==0)
+            {
+                if(food_code==menu_code)
+                {
+                    int demo_review = bad_review + 1;
+                    input_in_file_demo << menu_code << endl;
+                    input_in_file_demo << menu_name << endl;
+                    input_in_file_demo << good_review  << endl;
+                    input_in_file_demo << demo_review << endl;
+                    cout << "     Bad Review Given Successfully To Selected Food !!!" << endl;
+                }
+                else
+                {
+                    input_in_file_demo << menu_code << endl;
+                    input_in_file_demo << menu_name << endl;
+                    input_in_file_demo << good_review << endl;
+                    input_in_file_demo << bad_review << endl;
+                }
+                output_from_file >> menu_code;
+                output_from_file >> menu_name;
+                output_from_file >> good_review;
+                output_from_file >> bad_review;
+            }
+        }
+        output_from_file.close();
+        input_in_file_demo.close();
+        int aaa = remove("ReviewDB.txt");
+        if(!aaa==0)
+        {
+            perror("Error: ");
+        }
+        rename("demo_ReviewDB.txt","ReviewDB.txt");
+    }
+
+};
+int main()
+{
+    HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+    int terminal;
+    terminal = 1;
+    system("color 0c");
+    while(terminal!=0)
+    {
+        SetConsoleTextAttribute(h,3);
+        int identifier;
+        cout << "     Welcome To 7 Dayz Agrabad Branch !!!" << endl;
+        cout << "     1.Owner/Admin" << endl;
+        cout << "     2.Customer" << endl;
+        cout << "     0.Exit" << endl;
+        cout << "     Press : ";
+        cin >> identifier;
+        if(identifier==1)
+        {
+            system("cls");
+            int terminal2;
+            terminal2 = 1;
+            while(terminal2!=0)
+            {
+                SetConsoleTextAttribute(h,3);
+                int owner_choice;
+                cout << "     Welcome Owner/Admin !!!!!" << endl;
+                cout << "     1.Login As A Owner/Admin" << endl;
+                cout << "     2.Register As Admin" << endl;
+                cout << "     0.Exit" << endl;
+                cout << "     Press : ";
+                cin >> owner_choice;
+                if(owner_choice==0)
+                {
+                    terminal2 = 0;
+                    break;
+                }
+                if(owner_choice==1)
+                {
+                    SetConsoleTextAttribute(h,6);
+                    ifstream admin_data("AdminDB.txt");
+                    int security = 0;
+                    int terminal3 = 1;
+                    long long int phone;
+                    long long int phone_file;
+                    string username;
+                    string password;
+                    string username_file;
+                    string password_file;
+                    cout << "     Enter Username : ";
+                    cin >> username;
+                    cout << "     Enter Password : ";
+                    cin >> password;
+                    admin_data >> username_file;
+                    admin_data >> password_file;
+                    admin_data >> phone_file;
+                    while(admin_data.eof()==0)
+                    {
+                        if(username==username_file && password==password_file)
+                        {
+                            security = 1;
+                            SetConsoleTextAttribute(h,10);
+                            cout << "     You Logged In Successfully !!!" << endl;
+                            SetConsoleTextAttribute(h,3);
+                            system("cls");
+                        }
+                        admin_data >> username_file;
+                        admin_data >> password_file;
+                        admin_data >> phone_file;
+                    }
+                    while(terminal3!=0)
+                    {
+                        if(security==1)
+                        {
+                            SetConsoleTextAttribute(h,3);
+                            int admin_choice;
+                            cout << "     1.Add Menu" << endl;
+                            cout << "     2.See All Menu" << endl;
+                            cout << "     3.Edit Menu" << endl;
+                            cout << "     4.Delete Menu" << endl;
+                            cout << "     5.See Food Reviews" << endl;
+                            cout << "     0.Exit" << endl;
+                            cout << "     Press : ";
+                            cin >> admin_choice;
+                            if(admin_choice==0)
+                            {
+                                terminal3 = 0;
+                                break;
+                            }
+                            else if(admin_choice==1)
+                            {
+                                SetConsoleTextAttribute(h,6);
+                                ofstream review_data("ReviewDB.txt", ios::out|ios::app);
+                                restaurent admin;
+                                int code;
+                                string name;
+                                int quantity;
+                                int price;
+                                cout << "     Enter Food Code : ";
+                                cin >> code;
+                                review_data << code << endl;
+                                cin.ignore();
+                                cout << "     Enter Food Name (Without Space) : ";
+                                cin >> name;
+                                review_data << name << endl;
+                                cout << "     Enter Food Price : ";
+                                cin >> price;
+                                review_data << "0" << endl;
+                                cout << "     Enter Food Quantity : ";
+                                cin >> quantity;
+                                review_data << "0" << endl;
+                                admin.set_food_menu(code, name, price, quantity);
+                                admin.save_food_menu_in_file();
+                                SetConsoleTextAttribute(h,10);
+                                system("cls");
+                                cout << "     Menu Added Successfully !!!" << endl;
+                                review_data.close();
+                                SetConsoleTextAttribute(h,3);
+
+                            }
+                            else if(admin_choice==2)
+                            {
+                                restaurent admin;
+                                SetConsoleTextAttribute(h,3);
+                                system("cls");
+                                admin.see_menu();
+                            }
+                            else if(admin_choice==3)
+                            {
+                                int admin_edit;
+                                cout << "     1.Edit Menu Name" << endl;
+                                cout << "     2.Edit Menu Price" << endl;
+                                cout << "     3.Edit Menu Quantity" << endl;
+                                cout << "     Press : ";
+                                cin >> admin_edit;
+                                if(admin_edit==1)
+                                {
+                                    restaurent admin;
+                                    SetConsoleTextAttribute(h,10);
+                                    admin.change_menu_name();
+                                    SetConsoleTextAttribute(h,3);
+
+                                }
+                                if(admin_edit==2)
+                                {
+                                    restaurent admin;
+                                    SetConsoleTextAttribute(h,10);
+                                    admin.change_menu_price();
+                                    SetConsoleTextAttribute(h,3);
+
+                                }
+                                if(admin_edit==3)
+                                {
+                                    restaurent admin;
+                                    SetConsoleTextAttribute(h,10);
+                                    admin.change_menu_quantity();
+                                    SetConsoleTextAttribute(h,3);
+
+                                }
+                            }
+                            else if(admin_choice==4)
+                            {
+                                restaurent admin;
+                                SetConsoleTextAttribute(h,4);
+                                admin.delete_menu();
+                            }
+                            else if(admin_choice==5)
+                            {
+                                restaurent admin;
+                                SetConsoleTextAttribute(h,10);
+                                system("cls");
+                                admin.see_review();
+                                SetConsoleTextAttribute(h,3);
+                            }
+                        }
+                        if(security==0)
+                        {
+                            SetConsoleTextAttribute(h,4);
+                            cout << "     Invalid Username Or Password !!!" << endl;
+                            break;
+                        }
+                    }
+
+                }
+                if(owner_choice==2)
+                {
+                    restaurent owner;
+                    SetConsoleTextAttribute(h,6);
+                    owner.admin_register();
+                }
+            }
+        }
+        if(identifier==2)
+        {
+             system("cls");
+            int terminal3 = 1;
+            while(terminal3!=0)
+            {
+                SetConsoleTextAttribute(h,3);
+                int customer_choice;
+                cout << "     1.Login" << endl;
+                cout << "     2.Register" << endl;
+                cout << "     0.Exit" << endl;
+                cout << "     Press : ";
+                cin >> customer_choice;
+                if(customer_choice==0)
+                {
+                    terminal3 = 0;
+                    break;
+                }
+                if(customer_choice==1)
+                {
+                    ifstream customer_data("CustomerDB.txt");
+                    int security = 0;
+                    int terminal4 = 1;
+                    long long int phone;
+                    long long int phone_file;
+                    string username;
+                    string password;
+                    string username_file;
+                    string password_file;
+                    cout << "     Enter Username : ";
+                    cin >> username;
+                    cout << "     Enter Password : ";
+                    cin >> password;
+                    customer_data >> username_file;
+                    customer_data >> password_file;
+                    customer_data >> phone_file;
+                    while(customer_data.eof()==0)
+                    {
+                        if(username==username_file && password==password_file)
+                        {
+                            security = 1;
+                            SetConsoleTextAttribute(h,10);
+                             system("cls");
+                            cout << "     You Logged In Successfully !!!" << endl;
+                        }
+                        customer_data >> username_file;
+                        customer_data >> password_file;
+                        customer_data >> phone_file;
+                    }
+                    while(terminal4!=0)
+                    {
+                        if(security==1)
+                        {
+                            SetConsoleTextAttribute(h,3);
+                            int customer_wish;
+                            cout << "     1.See Food Menus" << endl;
+                            cout << "     2.Order Food" << endl;
+                            cout << "     3.Review" << endl;
+                            cout << "     0.Exit" << endl;
+                            cout << "     Press : ";
+                            cin >> customer_wish;
+                            if(customer_wish==0)
+                            {
+                                 system("cls");
+                                terminal4 = 0;
+                                break;
+                            }
+                            if(customer_wish==1)
+                            {
+                                restaurent customer;
+                                SetConsoleTextAttribute(h,10);
+                                 system("cls");
+                                customer.see_menu();
+                                SetConsoleTextAttribute(h,3);
+                            }
+                            if(customer_wish==2)
+                            {
+                                int breaker = 1;
+                                while(breaker!=0)
+                                {
+                                    SetConsoleTextAttribute(h,3);
+                                    int customer_demand;
+                                    cout << "      1.Order" << endl;
+                                    cout << "      0.Exit" << endl;
+                                    cout << "      Press : ";
+                                    cin >> customer_demand;
+                                    if(customer_demand==0)
+                                    {
+                                         system("cls");
+                                        breaker = 0;
+                                        break;
+                                    }
+                                    if(customer_demand==1)
+                                    {
+                                        restaurent customer;
+                                        SetConsoleTextAttribute(h,13);
+                                         system("cls");
+                                        customer.buy_food();
+
+                                    }
+                                }
+                            }
+                            if(customer_wish==3)
+                            {
+                                 system("cls");
+                                int terminal5 = 5;
+                                while(terminal5!=0)
+                                {
+                                    SetConsoleTextAttribute(h,3);
+                                    int terminal5 = 5;
+                                    int customer_demand;
+                                    cout << "     1.See Review" << endl;
+                                    cout << "     2.Give Any Food Review" << endl;
+                                    cout << "     0.Exit" << endl;
+                                    cout << "     Press : ";
+                                    cin >> customer_demand;
+                                    if(customer_demand==0)
+                                    {
+                                        terminal5 = 0;
+                                        break;
+                                    }
+                                    if(customer_demand==1)
+                                    {
+                                        restaurent customer;
+                                        SetConsoleTextAttribute(h,10);
+                                        system("cls");
+                                        customer.see_review();
+                                    }
+                                    if(customer_demand==2)
+                                    {
+                                        restaurent customer;
+                                        SetConsoleTextAttribute(h,10);
+                                        system("cls");
+                                        customer.give_review();
+                                    }
+                                }
+                            }
+                        }
+                        if(security==0)
+                        {
+                            SetConsoleTextAttribute(h,4);
+                             system("cls");
+                            cout << "     Invalid Username Or Password !!! " << endl;
+                            break;
+                        }
+                    }
+                }
+                if(customer_choice==2)
+                {
+                    restaurent customer;
+                    SetConsoleTextAttribute(h,10);
+                     system("cls");
+                    customer.customer_register();
+                }
+            }
+        }
+        if(identifier==0)
+        {
+            terminal = 0;
+            break;
+        }
+    }
+    return 0;
+}
+///// end /////
